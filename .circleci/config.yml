@@ -20,6 +20,6 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      - run: ./vendor/bin/phpunit --bootstrap src/Email.php tests
+      - run: phpunit --bootstrap src/Email.php tests
       
               
