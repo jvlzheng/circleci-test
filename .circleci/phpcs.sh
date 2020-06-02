@@ -8,7 +8,6 @@ else
 	echo "This is a pull request, continuing"
 fi
 
-# Check if phpcs.xml is present. Don't do anything if it isn't.
 if [ ! -f phpcs.xml ]
 then
 	echo "No phpcs.xml file found. Nothing to do."
