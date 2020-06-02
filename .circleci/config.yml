@@ -24,7 +24,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
-
+      - run: brew install phpunit
       - run: phpunit --bootstrap src/Email.php tests
       
               
