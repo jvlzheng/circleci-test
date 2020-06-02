@@ -20,7 +20,7 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      - run: composer require --dev phpunit/phpunit ^9
+      - run: composer require --dev phpunit/phpunit ^7
       - run: phpunit --bootstrap src/Email.php tests
       
               
