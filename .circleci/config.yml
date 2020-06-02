@@ -25,6 +25,6 @@ jobs:
 
       - run: yarn test
 
-      - run: vendor/bin/phpunit --bootstrap src/Email.php tests
+      - run: phpunit --bootstrap src/Email.php tests
       
               
