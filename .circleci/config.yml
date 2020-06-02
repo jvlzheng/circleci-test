@@ -9,6 +9,10 @@ jobs:
     php:
       version: 7.4.6
 
+    test:
+      override:
+        - phpunit --log-junit --bootstrap src/Email.php tests
+
     steps:
       - checkout
       - restore_cache:
@@ -25,7 +29,4 @@ jobs:
 
       - run: yarn test
 
-    test:
-      override:
-        - phpunit --log-junit --bootstrap src/Email.php tests
               
