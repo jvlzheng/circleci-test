@@ -3,11 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/node:12
-      
-      - php:
-          version: 7.4.6
 
     working_directory: ~/repo
+    
+    php:
+      version: 7.4.6
 
     steps:
       - checkout
