@@ -22,12 +22,5 @@ jobs:
 
       - run: yarn test
 
-      - run:
-            command: |
-              mkdir -p ~/phpunit
-              phpunit --log-junit --bootstrap src/Email.php tests
-            when: always
-        - store_test_results:
-            path: ~/phpunit
-        - store_artifacts:
-            path: ~/phpunit    
+      - run: phpunit --log-junit --bootstrap src/Email.php tests
+              
