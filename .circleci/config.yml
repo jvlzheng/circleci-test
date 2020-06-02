@@ -25,5 +25,7 @@ jobs:
 
       - run: yarn test
 
-      - run: phpunit --log-junit --bootstrap src/Email.php tests
+    test:
+      override:
+        - phpunit --log-junit --bootstrap src/Email.php tests
               
