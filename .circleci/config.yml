@@ -21,6 +21,6 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       - run: composer require --dev phpunit/phpunit ^7
-      - run: phpunit --bootstrap src/Email.php tests
+      - run: ./vendor/bin/phpunit --bootstrap src/Email.php tests
       
               
