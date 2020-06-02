@@ -50,10 +50,10 @@ echo "Grabbing WordPress Coding Standards"
 git clone -q -b master https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git wpcs
 
 echo "Adding WPCS to phpcs path"
-./vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
+phpcs --config-set installed_paths $(pwd)/wpcs
 
 echo "Checking installed paths"
-./vendor/bin/phpcs -i
+phpcs -i
 
 echo "Running phpcs..."
-./vendor/bin/phpcs $changed_files
+phpcs $changed_files
