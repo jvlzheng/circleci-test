@@ -2,41 +2,34 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:12
+      - image: circleci/php:7.1-browsers
 
     working_directory: ~/repo
-    
-    php:
-      version: 7.4.6
 
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
-            
-      - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-      - run: brew install php
 
-      - run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-      - run: php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-      - run: php composer-setup.php
-      - run: php -r "unlink('composer-setup.php');"
-      - run: php composer.phar self-update
-      - run: sudo mv composer.phar /usr/local/bin/composer
       - run: composer install -n --prefer-dist
-      - run: composer require --dev phpunit/phpunit ^9
 
       - run: yarn install
 
       - save_cache:
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
 
+      - run: mkdir var/data
       - run: yarn test
-      - run: brew install phpunit
+
       - run: ./vendor/bin/phpunit --bootstrap src/Email.php tests
+
+      - store_test_results:
+          path: ~/phpunit
+      - store_artifacts:
+          path: ~/phpunit
       
               
