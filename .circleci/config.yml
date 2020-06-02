@@ -22,10 +22,12 @@ jobs:
 
       - run: yarn test
 
-    machine:
-      php:
-        version: 7.4.6
-
-    test:
-      override: 
-        - phpunit --bootstrap src/Email.php tests
+      - run:
+            command: |
+              mkdir -p ~/phpunit
+              phpunit --log-junit --bootstrap src/Email.php tests
+            when: always
+        - store_test_results:
+            path: ~/phpunit
+        - store_artifacts:
+            path: ~/phpunit    
