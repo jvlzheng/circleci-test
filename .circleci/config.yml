@@ -15,21 +15,11 @@ jobs:
 
       - run: composer install -n --prefer-dist
 
-      #- run: yarn install
-
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      - run: mkdir var/data
-      #- run: yarn test
-
       - run: ./vendor/bin/phpunit --bootstrap src/Email.php tests
-
-      - store_test_results:
-          path: ~/phpunit
-      - store_artifacts:
-          path: ~/phpunit
       
               
