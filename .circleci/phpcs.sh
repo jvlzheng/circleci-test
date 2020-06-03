@@ -52,8 +52,11 @@ git clone -q -b master https://github.com/WordPress-Coding-Standards/WordPress-C
 echo "Getting phpcs"
 curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
 
+echo "Adding WPCS to phpcs path"
+~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
+
 echo "Checking installed paths"
-./vendor/bin/phpcs -i
+~/.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
-./vendor/bin/phpcs $changed_files
+~/.composer/vendor/bin/phpcs $changed_files
