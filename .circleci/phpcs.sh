@@ -53,10 +53,10 @@ echo "Getting phpcs"
 curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
 
 echo "Adding WPCS to phpcs path"
-~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
+phpcs --config-set installed_paths $(pwd)/wpcs
 
 echo "Checking installed paths"
-~/.composer/vendor/bin/phpcs -i
+phpcs -i
 
 echo "Running phpcs..."
-~/.composer/vendor/bin/phpcs $changed_files
+phpcs $changed_files
