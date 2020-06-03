@@ -50,6 +50,9 @@ fi
 echo "Grabbing WordPress Coding Standards"
 git clone -q -b master https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git wpcs
 
+echo "Code Sniffer install"
+composer global require squizlabs/php_codesniffer
+
 echo "Adding WPCS to phpcs path"
 ./vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
 
