@@ -2,16 +2,16 @@
 
 if [[ -z "${CIRCLE_PULL_REQUEST}" ]];
 then
-	echo "This is not a pull request, no PHPCS needed."
+	echo "This is not a pull request, no sniffing needed."
 	exit 0
 else
 	echo "This is a pull request, continuing"
 fi
 
-# Check if phpcs.xml is present. Don't do anything if it isn't.
+# Check if phpcs.xml is present 
 if [ ! -f phpcs.xml ]
 then
-	echo "No phpcs.xml file found. Nothing to do."
+	echo "No phpcs.xml file found."
 	exit 0
 fi
 
@@ -46,16 +46,13 @@ then
 	exit 0
 fi
 
-echo "Grabbing Wordpress VIP Coding Standards globally"
+echo "Installing VIPCS and PHPCS Globally"
 composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
 
-echo "path"
-which phpcs
-
-echo "Wordpress VIP project lvl"
+echo "Installing VIPCS and PHPCS at the project level"
 composer require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
 
-echo "Checking installed paths"
+echo "Checking which standards are installed"
 ~/.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
