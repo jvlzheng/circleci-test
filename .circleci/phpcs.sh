@@ -59,4 +59,4 @@ echo "Checking installed paths"
 ~/.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
-~/.composer/vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor $changed_files
+~/.composer/vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor --exclude=WordPress.WP.TimezoneChange $changed_files
