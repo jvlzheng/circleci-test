@@ -61,5 +61,8 @@ echo "Running phpcs..."
 echo "Install PHPUnit..."
 composer require --dev phpunit/phpunit ^7
 
+echo "where is php unit"
+which phpunit
+
 echo "Running PHPUnit tests..."
 phpunit --bootstrap $changed_files tests
