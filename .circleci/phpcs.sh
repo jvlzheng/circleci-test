@@ -53,19 +53,13 @@ git clone -q -b master https://github.com/WordPress-Coding-Standards/WordPress-C
 echo "Code Sniffer install"
 composer global require squizlabs/php_codesniffer
 
-echo "path"
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-echo "bashrc"
-source ~/.bashrc
-
 echo $PATH
 
 echo "Adding WPCS to phpcs path"
-/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
+~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
 
 echo "Checking installed paths"
-/.composer/vendor/bin/phpcs -i
+~/.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
-/.composer/vendor/bin/phpcs $changed_files
+~/.composer/vendor/bin/phpcs $changed_files
