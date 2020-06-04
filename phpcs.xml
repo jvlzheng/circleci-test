@@ -5,6 +5,8 @@
 	<rule ref="WordPress-VIP-Go"/>
 	<rule ref="WordPress-Extra"/>
 	<rule ref="WordPress-Docs"/>
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress"/>
 
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/wp-content/vendor/*</exclude-pattern>
