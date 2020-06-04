@@ -62,10 +62,10 @@ source ~/.bashrc
 echo $PATH
 
 echo "Adding WPCS to phpcs path"
-./vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
+.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
 
 echo "Checking installed paths"
-./vendor/bin/phpcs -i
+.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
-./vendor/bin/phpcs $changed_files
+.composer/vendor/bin/phpcs $changed_files
