@@ -56,6 +56,9 @@ composer global require squizlabs/php_codesniffer
 echo "Adding WPCS to phpcs path"
 ~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
 
+echo "Adding WPVIP to phpcs path"
+composer require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
+
 echo "Checking installed paths"
 ~/.composer/vendor/bin/phpcs -i
 
