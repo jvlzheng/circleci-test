@@ -52,11 +52,8 @@ git clone -q -b master https://github.com/Automattic/VIP-Coding-Standards.git vi
 echo "Code Sniffer install"
 composer global require squizlabs/php_codesniffer
 
-echo "Adding WPVIP to phpcs path"
-~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/vipwpcs
-
 echo "Checking installed paths"
 ~/.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
-~/.composer/vendor/bin/phpcs $changed_files
+~/.composer/vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor $changed_files
