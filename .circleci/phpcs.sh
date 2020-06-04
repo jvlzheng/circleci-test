@@ -50,6 +50,9 @@ fi
 echo "Grabbing WordPress Coding Standards"
 git clone -q -b master https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git wpcs
 
+echo "Grabbing Wordpress VIP Coding Standards"
+git clone -q -b master https://github.com/Automattic/VIP-Coding-Standards.git vipwpcs
+
 echo "Code Sniffer install"
 composer global require squizlabs/php_codesniffer
 
@@ -57,7 +60,7 @@ echo "Adding WPCS to phpcs path"
 ~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/wpcs
 
 echo "Adding WPVIP to phpcs path"
-composer require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
+~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/vipwpcs
 
 echo "Checking installed paths"
 ~/.composer/vendor/bin/phpcs -i
