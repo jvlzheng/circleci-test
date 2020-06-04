@@ -46,17 +46,17 @@ then
 	exit 0
 fi
 
-echo "Grabbing Wordpress VIP Coding Standards"
-git clone -q -b master https://github.com/Automattic/VIP-Coding-Standards.git vipwpcs
+echo "Grabbing Wordpress VIP Coding Standards globally"
+composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
 
-echo "Code Sniffer install"
-composer global require squizlabs/php_codesniffer
+echo "path"
+which phpcs
 
-echo "Adding WPVIP to phpcs path"
-~/.composer/vendor/bin/phpcs --config-set installed_paths $(pwd)/vipwpcs
+echo "Wordpress VIP project lvl"
+composer require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
 
 echo "Checking installed paths"
-~/.composer/vendor/bin/phpcs -i
+phpcs -i
 
 echo "Running phpcs..."
-~/.composer/vendor/bin/phpcs $changed_files
+phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor $changed_files
