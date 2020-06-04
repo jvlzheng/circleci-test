@@ -57,3 +57,9 @@ echo "Checking which standards are installed"
 
 echo "Running phpcs..."
 ~/.composer/vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor --exclude=WordPress.WP.TimezoneChange $changed_files
+
+echo "Install PHPUnit..."
+composer require --dev phpunit/phpunit ^7
+
+echo "Running PHPUnit tests..."
+~/.composer/vendor/bin/phpunit --bootstrap $changed_files tests
