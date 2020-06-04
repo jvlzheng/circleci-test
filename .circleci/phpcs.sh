@@ -56,7 +56,7 @@ echo "Wordpress VIP project lvl"
 composer require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer
 
 echo "Checking installed paths"
-phpcs -i
+~/.composer/vendor/bin/phpcs -i
 
 echo "Running phpcs..."
-phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor $changed_files
+~/.composer/vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor $changed_files
