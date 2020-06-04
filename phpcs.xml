@@ -4,7 +4,8 @@
 
 	<rule ref="WordPressVIPMinimum"/>
 	<rule ref="WordPress-VIP-Go"/>
-	<rule ref="WordPress.Security.EscapeOutput"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
 
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/wp-content/vendor/*</exclude-pattern>
