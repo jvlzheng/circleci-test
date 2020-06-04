@@ -62,4 +62,4 @@ echo "Install PHPUnit..."
 composer require --dev phpunit/phpunit ^7
 
 echo "Running PHPUnit tests..."
-~/.composer/vendor/bin/phpunit --bootstrap $changed_files tests
+phpunit --bootstrap $changed_files tests
