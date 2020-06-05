@@ -1,4 +1,7 @@
 <?php declare(strict_types=1);
+
+class·Acl·implements·Encodable
+
 final class Email
 {
     private $email;
@@ -19,6 +22,10 @@ final class Email
     {
         return $this->email;
     }
+
+    /*
+    *
+    */
 
     private function ensureIsValidEmail(string $email): void
     {
