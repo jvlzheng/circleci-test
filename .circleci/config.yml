@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
-      - image: circleci/node:12
 
     working_directory: ~/repo
 
@@ -29,7 +28,11 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
-              
+
+      - run: 
+          name: "Downloading dependencies..."
+          command: composer install -n --prefer-dist
+
       - save_cache:
           paths:
             - ./vendor
@@ -50,7 +53,7 @@ jobs:
             php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
             php composer-setup.php
             php -r "unlink('composer-setup.php');"
-
+            
       - run:
           name: Install project dependencies
           command: php composer.phar install
