@@ -21,7 +21,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: 
-          name: "Running Jest Tests..."
+          name: "Running Jest Tests"
           command: yarn test
 
       - restore_cache:
@@ -30,7 +30,7 @@ jobs:
             - v1-dependencies-
 
       - run: 
-          name: "Downloading dependencies..."
+          name: "Downloading dependencies"
           command: composer install -n --prefer-dist
 
       - save_cache:
@@ -43,7 +43,7 @@ jobs:
           command: composer require --dev phpunit/phpunit ^7
 
       - run: 
-          name: "Running PHP Unit tests.."
+          name: "Running PHP Unit tests"
           command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
 
       - run:
