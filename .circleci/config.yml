@@ -29,9 +29,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
             - v1-dependencies-
-
-      - run: composer install -n --prefer-dist
-
+              
       - save_cache:
           paths:
             - ./vendor
@@ -44,6 +42,14 @@ jobs:
       - run: 
           name: "Running PHP Unit tests.."
           command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
+
+      - run:
+          name: Install Composer
+          command: |
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
 
       - run:
           name: Install project dependencies
