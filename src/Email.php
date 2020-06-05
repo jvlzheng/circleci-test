@@ -21,8 +21,6 @@ final class Email
         return $this->email;
     }
 
-    class·Acl·implements·Encodable
-
     private function ensureIsValidEmail(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
