@@ -19,6 +19,12 @@ jobs:
           name: "Running Jest Tests"
           command: yarn test
 
+  phpunit-testing:
+    docker:
+      - image: circleci/php:7.1-node-browsers
+      working_directory: ~/repo
+
+      - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
@@ -40,6 +46,12 @@ jobs:
           name: "Running PHP Unit tests"
           command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
 
+  codesniffer-tests:
+    docker:
+      - image: circleci/php:7.1-node-browsers
+      working_directory: ~/repo
+
+      - checkout
       - run:
           name: Install Composer
           command: |
@@ -54,3 +66,11 @@ jobs:
       - run:
           name: Running PHPCS
           command: bash ./.circleci/phpcs.sh
+
+workflows:
+  version: 2.1
+  testing:
+    jobs:
+      - build
+      - phpunit-testing
+      - codesniffer-tests
