@@ -1,12 +1,9 @@
-defaults:
-  docker:
-      - image: circleci/php:7.1-node-browsers
-    working_directory: ~/repo
-
 version: 2.1
 jobs:
   build:
-    <<: *defaults
+    docker:
+      - image: circleci/php:7.1-node-browsers
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -23,7 +20,9 @@ jobs:
           command: yarn test
 
   phpunit-testing:
-    <<: *defaults
+    docker: 
+      - image: circle/php:7.1-node-browsers
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
@@ -45,7 +44,11 @@ jobs:
           command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
 
   codesniffer-testing:
-    <<: *defaults
+    docker: 
+      - image: circle/php:7.1-node-browsers
+
+    working_directory: ~/repo
+
     steps:
       - checkout
       - run:
@@ -55,6 +58,7 @@ jobs:
             php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
             php composer-setup.php
             php -r "unlink('composer-setup.php');"
+            
       - run:
           name: Install project dependencies
           command: php composer.phar install
