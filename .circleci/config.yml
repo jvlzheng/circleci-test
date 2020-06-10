@@ -4,7 +4,7 @@ defaults: &defaults
 
 version: 2.1
 jobs:
-  jest-testing:
+  jest-tests:
     <<: *defaults
     steps:
       - checkout
@@ -21,7 +21,7 @@ jobs:
           name: "Running Jest Tests"
           command: yarn test
 
-  phpunit-testing:
+  phpunit-tests:
     <<: *defaults
     steps:
       - checkout
@@ -32,16 +32,13 @@ jobs:
       - run: 
           name: "Downloading dependencies"
           command: composer install -n --prefer-dist
-
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
-
       - run: 
           name: "Installing PHPUnit"
           command: composer require --dev phpunit/phpunit ^7
-
       - run: 
           name: "Running PHP Unit tests"
           command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
@@ -56,8 +53,7 @@ jobs:
             php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
             php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
             php composer-setup.php
-            php -r "unlink('composer-setup.php');"
-            
+            php -r "unlink('composer-setup.php');"  
       - run:
           name: Install project dependencies
           command: php composer.phar install
