@@ -65,6 +65,6 @@ workflows:
   version: 2.1
   testing-all:
     jobs:
-      - jest-testing
-      - phpunit-testing
+      - jest-tests
+      - phpunit-tests
       - codesniffer-tests
