@@ -1,9 +1,11 @@
+defaults: &defaults
+  docker:
+    - image: circleci/php:7.1-node-browsers
+
 version: 2.1
 jobs:
   jest-testing:
-    docker:
-      - image: circleci/node:latest
-
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -20,9 +22,7 @@ jobs:
           command: yarn test
 
   phpunit-testing:
-    docker:
-      - image: circleci/php:7.1-node-browsers
-
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -47,9 +47,7 @@ jobs:
           command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
 
   codesniffer-tests:
-    docker:
-      - image: circleci/php:7.1-node-browsers
-
+    <<: *defaults
     steps:
       - checkout
       - run:
