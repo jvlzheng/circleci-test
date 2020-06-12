@@ -9,5 +9,5 @@ test('renders learn react link', () => {
 
 });
 
-it('fails successfully', () => expect(true).toBe(true));
+it('fails successfully', () => expect(true).toBe(false));
 
