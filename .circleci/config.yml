@@ -1,23 +1,70 @@
-version: 2
+defaults: &defaults
+  docker:
+    - image: circleci/php:7.1-node-browsers
+
+version: 2.1
 jobs:
-  build:
-    docker:
-      - image: circleci/node:12
-
-    working_directory: ~/repo
-
+  jest-tests:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-
       - run: yarn install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - run: 
+          name: "Running Jest Tests"
+          command: yarn test
 
-      - run: yarn test
+  phpunit-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-
+      - run: 
+          name: "Downloading dependencies"
+          command: composer install -n --prefer-dist
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+      - run: 
+          name: "Installing PHPUnit"
+          command: composer require --dev phpunit/phpunit ^7
+      - run: 
+          name: "Running PHP Unit tests"
+          command: ./vendor/bin/phpunit --bootstrap src/Email.php tests
+
+  codesniffer-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install Composer
+          command: |
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"  
+      - run:
+          name: Install project dependencies
+          command: php composer.phar install
+      - run:
+          name: Running PHPCS
+          command: bash ./.circleci/phpcs.sh
+
+workflows:
+  version: 2.1
+  testing-all:
+    jobs:
+      - jest-tests
+      - phpunit-tests
+      - codesniffer-tests
